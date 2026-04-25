@@ -26,7 +26,7 @@ tags:
 
 [![OpenEnv](https://img.shields.io/badge/OpenEnv-Compatible-4f46e5?style=for-the-badge)](https://github.com/OpenEnv-ai/openenv)
 [![HF Space](https://img.shields.io/badge/Live_Demo-yellow?style=for-the-badge)](https://huggingface.co/spaces/asabhishek/polaris-v3)
-[![Blog](https://img.shields.io/badge/HF_Blog-orange?style=for-the-badge)](https://huggingface.co/blog/asabhishek/polaris-v3)
+[![Blog](https://img.shields.io/badge/Blog-orange?style=for-the-badge)](https://github.com/abhishekascodes/POLARIS-V3/blob/main/BLOG.md)
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 
 **Built solo by [Abhishek A S](https://github.com/abhishekascodes) (17) · Meta PyTorch OpenEnv Hackathon 2026**
@@ -51,7 +51,7 @@ Unlike simple RL environments, the challenge here is **other intelligent agents 
 | **Live Demo** | [**asabhishek-polaris-v3.hf.space**](https://asabhishek-polaris-v3.hf.space) |
 | **Colab Notebook** | [**Open in Colab**](https://colab.research.google.com/github/abhishekascodes/POLARIS-V3/blob/main/POLARIS_v3_Demo.ipynb) |
 | **GitHub Repo** | [**github.com/abhishekascodes/POLARIS-V3**](https://github.com/abhishekascodes/POLARIS-V3) |
-| **HF Blog** | [**huggingface.co/blog/asabhishek/polaris-v3**](https://huggingface.co/blog/asabhishek/polaris-v3) |
+| **Blog** | [**BLOG.md**](https://github.com/abhishekascodes/POLARIS-V3/blob/main/BLOG.md) |
 
 ---
 
@@ -135,7 +135,7 @@ POLARIS v3 Engine
 |----------|-----|
 | Demo Video | [youtu.be/jP-cAZvJ7aU](https://youtu.be/jP-cAZvJ7aU) |
 | HuggingFace Space | [huggingface.co/spaces/asabhishek/polaris-v3](https://huggingface.co/spaces/asabhishek/polaris-v3) |
-| HuggingFace Blog | [huggingface.co/blog/asabhishek/polaris-v3](https://huggingface.co/blog/asabhishek/polaris-v3) |
+| Blog | [BLOG.md](https://github.com/abhishekascodes/POLARIS-V3/blob/main/BLOG.md) |
 | GitHub Repository | [github.com/abhishekascodes/POLARIS-V3](https://github.com/abhishekascodes/POLARIS-V3) |
 | Colab Demo | [POLARIS_v3_Demo.ipynb](https://colab.research.google.com/github/abhishekascodes/POLARIS-V3/blob/main/POLARIS_v3_Demo.ipynb) |
 
