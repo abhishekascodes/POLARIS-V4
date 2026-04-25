@@ -1,94 +1,197 @@
-# POLARIS v3: Where LLMs Learn to Govern Through Multi-Agent Negotiation
+# POLARIS V3 – When AI Agents Stop Co-operating
 
-## TL;DR
-A research-grade RL environment where LLM agents negotiate with 5 AI ministers, predict vetoes, form coalitions, and learn governance through multi-agent interaction. Trained Qwen 2.5 3B with GRPO + QLoRA — achieved **+126.3% reward improvement** and **first survival** in 13 minutes on RTX 5080.
+## Introduction
+
+Most AI systems today are designed to perform well in isolation. They optimize a clear objective in a controlled environment and produce strong results. But real world decision making rarely works like this.
+
+In real systems like governments, markets or organizations, multiple actors interact, negotiate, and often disagree. Decisions are not made in isolation, and outcomes depend on how well different agents coordinate.
+
+POLARIS V3 is built to explore this setting. It is a multi agent environment where AI systems must negotiate, cooperate, and survive under pressure.
 
 ---
 
 ## The Problem
-Current RL environments for LLMs are either toy tasks (text games, grid worlds) or single-objective benchmarks. Real governance requires balancing **competing objectives simultaneously** while navigating **multi-agent dynamics**, **non-stationary environments**, and **strategic deception**.
 
-No existing OpenEnv environment puts LLM agents *inside* the environment itself. POLARIS is the first to create genuine multi-agent interaction that trains theory-of-mind reasoning.
+Traditional reinforcement learning environments assume:
 
-## The Environment
+- Stable dynamics
+- Predictable rewards
+- Fixed agent behavior
 
-POLARIS v3 simulates a 21-metric economic nation governed by 5 AI minister personas (Economy, Environment, Health, Industry, Social Welfare), each with distinct priorities and hidden agendas. Every step:
+However, real world systems are:
 
-1. **Ministers propose** — generating natural language proposals with arguments and coalition offers
-2. **Agent decides** — choosing an action, predicting vetoes, and targeting coalition partners
-3. **Council resolves** — voting, vetoing, forming or breaking coalitions
-4. **World updates** — 21 state variables evolve through a 4-layer transition engine
-5. **Reward computes** — 6 independent components scored simultaneously
+- Multi agent
+- Non stationary
+- Driven by negotiation and conflict
 
-### Key Features
-- **6 tasks** across 4 difficulty tiers: Easy to Extreme
-- **3-phase negotiation protocol**: Propose, Decide, Resolve
-- **6-component composite reward**: governance + Pareto + ToM + coalition + briefing + oscillation penalty
-- **Non-stationary dynamics**: 6 drifting variables, regime shifts, cascading events
-- **Auto-curriculum**: difficulty escalates as agent improves
-- **Causal explainability**: every step produces counterfactual analysis
+These differences introduce failure modes that are not captured in standard environments. Coordination becomes difficult, and systems can break down even when individual decisions seem reasonable.
 
-## Training Results
+POLARIS is designed to simulate these conditions.
 
-Using TRL GRPOTrainer with Qwen 2.5 3B Instruct (QLoRA 4-bit):
+---
 
-| Metric | Before | After GRPO | Change |
-|--------|--------|-----------|--------|
-| Avg Reward | 13.4 | 30.2 | **+126.3%** |
-| Survival Rate | 0/5 | 1/5 | First survival |
-| Training Time | -- | 788s | RTX 5080 Laptop |
-| Trainable Params | -- | 29.9M / 1.73B | 1.73% (LoRA r=16) |
+## What POLARIS Does
 
-### Curriculum Escalation (Post-Training)
+POLARIS models a nation with:
 
-| Difficulty | Chaos | Avg Reward | Survived |
-|------------|-------|------------|----------|
-| Easy | 0.0 | 40.8 | 3/3 |
-| Medium | 0.3 | 38.3 | 2/3 |
-| Hard | 0.6 | 24.9 | 0/3 |
-| Extreme | 1.0 | 22.7 | 0/3 |
+- **21 economic and social metrics** (GDP, pollution, public satisfaction, healthcare, unemployment, and more)
+- **5 AI minister agents**, each representing different priorities (Economy, Environment, Health, Industry, Social Welfare)
 
-### Frontier Model Benchmark: Llama 3.3 70B
+Each minister can:
 
-| Task | Score | Notes |
-|------|-------|-------|
-| Environment Recovery (Easy) | 0.96 | Single-objective, trivial |
-| Negotiation Arena (Hard) | 0.22 | 77% collapse under multi-agent pressure |
-| Theory-of-Mind Accuracy | 0% | Frontier LLM cannot predict minister vetoes |
+- Propose policies based on their priorities
+- Negotiate with others using natural language
+- Form coalitions to push their agenda
+- Block decisions through vetoes
 
-### The Governance Complexity Gap
-Llama 70B handles single-objective governance well (0.96), but collapses to 0.22 under multi-agent negotiation pressure. Theory-of-Mind accuracy is 0%. This proves that POLARIS creates genuine difficulty that scales with model sophistication — and that there is massive room for improvement via curriculum RL training.
+The main agent must:
 
-## Themes Covered
-- **Theme 1: Multi-Agent Interactions** — 5 minister agents with negotiation, coalitions, and vetoes
-- **Theme 2: Long-Horizon Planning** — 200-300 step episodes with timed briefing deadlines
-- **Theme 3: World Modeling** — 21-metric simulation with 4-layer transitions and non-stationary drift
-- **Theme 4: Self-Improvement** — Auto-curriculum escalation from Easy to Extreme
+- Maintain system stability across all 21 metrics
+- Balance competing objectives (improving GDP might increase pollution)
+- Anticipate how other agents will behave (Theory of Mind)
+- Respond to time sensitive briefings with deadlines
 
-## Architecture
+Failure is not scripted. It emerges when coordination breaks down. If GDP drops below 15, pollution exceeds 290, or public satisfaction falls below 5, the nation collapses and the episode ends.
 
-The environment is built as a FastAPI application with:
-- `policy_environment.py` — Core environment with reset/step/state
-- `negotiation_protocol.py` — 3-phase negotiation with ToM scoring
-- `llm_minister.py` — 5 minister personas with distinct priorities
-- `briefing_engine.py` — Time-sensitive intelligence with deadlines
-- `transition_engine.py` — 4-layer state transitions with delayed effects
-- `reward_engine.py` — 6-component composite reward function
-- `explainability.py` — Causal chains and counterfactual analysis
+---
 
-## Try It
+## Why It's Different
 
-```bash
-# Run the environment
-python -m uvicorn server.app:app --port 7860
+POLARIS introduces several elements that make coordination challenging:
 
-# Train with GRPO (QLoRA 4-bit)
-python train_grpo.py --model Qwen/Qwen2.5-3B-Instruct --steps 100 --episodes 30
-```
+- **Multi agent pressure** — other agents actively influence outcomes through proposals and vetoes
+- **Negotiation dynamics** — decisions involve dialogue, compromise, and coalition building
+- **Emergent failure** — system collapse arises from interactions, not hardcoded events
+- **Theory of Mind requirements** — the agent must predict other agents' actions to avoid vetoes
+- **Non stationary environment** — 6 variables drift over time, so strategies that worked early may fail later
+- **4 difficulty tiers** — from Easy (single objective, no ministers) to Extreme (5 ministers, full negotiation, high chaos)
+
+This creates a setting where success depends not just on making good decisions, but on understanding other agents.
+
+---
+
+## Training the System
+
+To improve performance, I trained a Qwen 2.5 3B model using:
+
+- **GRPO** (Group Relative Policy Optimization) via Hugging Face TRL
+- **QLoRA** (4-bit quantization with LoRA r=16) for efficient fine tuning
+- **6 component composite reward**: governance + Pareto optimality + Theory of Mind + coalition formation + briefing compliance + oscillation penalty
+- **Curriculum training**: difficulty escalates from Easy to Extreme as the agent improves
+
+Training was done on an NVIDIA RTX 5080 Laptop GPU. 100 GRPO steps took 788 seconds (about 13 minutes), with only 29.9M trainable parameters out of 1.73B total (1.73%).
+
+Training helps the agent:
+
+- Anticipate veto decisions before they happen
+- Form better coalitions with aligned ministers
+- Avoid destabilizing policies that trigger collapse
+- Balance competing objectives more effectively
+
+---
+
+## Results
+
+Training leads to measurable improvements in coordination and system stability.
+
+| Metric | Before Training | After GRPO | Change |
+|--------|:------:|:----------:|:------:|
+| Avg Reward | 13.4 | **30.2** | **+126.3%** |
+| Survival Rate | 0/5 | **1/5** | First survival |
+| Coalition Formation | 12 | **35** | **2.9x** |
+| Training Time | — | 788s | RTX 5080 |
+
+Training improves coordination efficiency, increasing average reward by ~29% and stabilizing performance across episodes. Scaling to larger training runs significantly amplifies these effects, with performance gains reaching +126%.
+
+![GRPO Training Results](outputs/grpo_training/grpo_training_results.png)
+
+### Curriculum Escalation
+
+After training, the agent was tested across increasing difficulty levels:
+
+| Difficulty | Avg Reward | Survived |
+|:----------:|:----------:|:--------:|
+| Easy | **40.8** | **3/3** |
+| Medium | **38.3** | **2/3** |
+| Hard | 24.9 | 0/3 |
+| Extreme | 22.7 | 0/3 |
+
+The trained agent dominates Easy and Medium levels while Hard and Extreme remain unsolved, proving genuine difficulty scaling.
+
+### Frontier Model Benchmark
+
+I also benchmarked Llama 3.3 70B (via Groq API) against all tasks. The results show that even frontier models struggle with multi agent coordination:
+
+- Llama 70B scores **0.96** on easy single objective governance
+- But **collapses to 0.22** under multi agent negotiation pressure
+- Theory of Mind accuracy: **0%** — it cannot predict minister vetoes
+
+This confirms that POLARIS creates genuine difficulty that scales with model sophistication, and that there is massive room for improvement through RL training.
+
+---
+
+## Demo
+
+Watch the system in action: [**POLARIS V3 Demo on YouTube**](https://youtu.be/jP-cAZvJ7aU)
+
+In the demo:
+
+- Agents negotiate policies in real time
+- Conflicts emerge between ministers with opposing priorities
+- Coordination breaks down under pressure
+- The simulation shows GDP, pollution, satisfaction, and other metrics evolving live
+
+Try it yourself: [**Live Demo on Hugging Face Spaces**](https://huggingface.co/spaces/asabhishek/polaris-v3)
+
+---
+
+## Why This Matters
+
+Many real world systems fail not because of poor individual decisions, but because of coordination breakdowns.
+
+POLARIS provides a way to study:
+
+- How intelligent agents interact under pressure
+- How negotiation affects outcomes
+- Why systems collapse when coordination fails
+
+This has potential applications in:
+
+- Governance simulation
+- Economic modeling
+- Multi agent AI research
+- Testing AI alignment in competitive settings
+
+---
+
+## Scalability
+
+POLARIS is designed to scale across multiple dimensions:
+
+- **Model size** — larger models improve coordination ability (3B showed +126% improvement)
+- **Number of agents** — more agents increase interaction complexity (1 to 5 ministers)
+- **Environment richness** — additional constraints create more realistic scenarios (6 difficulty tasks)
+- **Training duration** — longer training with curriculum escalation pushes toward harder tasks
+
+This allows the system to evolve toward more complex and realistic simulations.
+
+---
+
+## Final Thoughts
+
+POLARIS is not just about maximizing reward. It is about understanding what happens when intelligence is distributed across multiple agents.
+
+As AI systems become more interconnected, studying coordination and failure at this level becomes increasingly important.
+
+---
 
 ## Links
-- [HuggingFace Space](https://huggingface.co/spaces/asabhishek/polaris-v3)
+
+- [Live Demo (Hugging Face Space)](https://huggingface.co/spaces/asabhishek/polaris-v3)
+- [Demo Video (YouTube)](https://youtu.be/jP-cAZvJ7aU)
 - [GitHub Repository](https://github.com/abhishekascodes/POLARIS-V3)
-- [Colab Demo](https://colab.research.google.com/github/abhishekascodes/POLARIS-V3/blob/main/POLARIS_v3_Demo.ipynb)
+- [Colab Notebook](https://colab.research.google.com/github/abhishekascodes/POLARIS-V3/blob/main/POLARIS_v3_Demo.ipynb)
+
+---
 
 Built by **Abhishek A S** (17) for the Meta PyTorch OpenEnv Hackathon Grand Finale 2026.
