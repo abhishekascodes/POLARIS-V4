@@ -22,7 +22,7 @@ tags:
 
 **The first OpenEnv environment where LLM agents negotiate, form coalitions, predict vetoes, and learn governance through multi-agent interaction.**
 
-> **This is the latest and final submission version of POLARIS.**
+> **This is the final hackathon submission. POLARIS v1 and v2 on this GitHub are earlier iterations — this v3 repo is the only one to be evaluated.**
 
 [![OpenEnv](https://img.shields.io/badge/OpenEnv-Compatible-4f46e5?style=for-the-badge)](https://github.com/OpenEnv-ai/openenv)
 [![HF Space](https://img.shields.io/badge/Live_Demo-yellow?style=for-the-badge)](https://huggingface.co/spaces/asabhishek/polaris-v3)
