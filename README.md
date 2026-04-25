@@ -53,6 +53,8 @@ Unlike simple RL environments, the challenge here is **other intelligent agents 
 | **GitHub Repo** | [**github.com/abhishekascodes/POLARIS-V3**](https://github.com/abhishekascodes/POLARIS-V3) |
 | **Blog** | [**BLOG.md**](https://github.com/abhishekascodes/POLARIS-V3/blob/main/BLOG.md) |
 
+> If Colab doesn't open, [view the notebook directly on GitHub](https://github.com/abhishekascodes/POLARIS-V3/blob/main/POLARIS_v3_Demo.ipynb).
+
 ---
 
 ## Key Features
