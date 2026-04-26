@@ -90,6 +90,8 @@ Training improves coordination efficiency, increasing average reward by ~29% and
 
 **Frontier model benchmark:** Llama 3.3 70B scores 0.96 on easy governance but collapses to 0.22 on multi-agent negotiation. Theory-of-Mind accuracy: 0%. POLARIS creates genuine difficulty that scales with model sophistication.
 
+Training logs, evaluation outputs, and benchmark data are available in [`/outputs`](outputs/) for full transparency.
+
 ---
 
 ## Quick Start

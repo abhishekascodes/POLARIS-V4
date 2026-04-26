@@ -1,0 +1,85 @@
+{
+  "model": "llama-3.3-70b-versatile",
+  "results": [
+    {
+      "task": "environmental_recovery",
+      "model": "llama-3.3-70b-versatile",
+      "score": 0.9586,
+      "reward": 42.0802,
+      "steps": 50,
+      "collapsed": false,
+      "survived": true,
+      "time_sec": 84.1,
+      "actions": {
+        "invest_in_education": 14,
+        "incentivize_clean_tech": 23,
+        "invest_in_healthcare": 9,
+        "no_action": 4
+      }
+    },
+    {
+      "task": "balanced_economy",
+      "model": "llama-3.3-70b-versatile",
+      "score": 0.1531,
+      "reward": 5.8705,
+      "steps": 9,
+      "collapsed": true,
+      "survived": false,
+      "time_sec": 24.9,
+      "actions": {
+        "invest_in_education": 8,
+        "incentivize_clean_tech": 1
+      }
+    },
+    {
+      "task": "sustainable_governance",
+      "model": "llama-3.3-70b-versatile",
+      "score": 0.2246,
+      "reward": 43.9052,
+      "steps": 59,
+      "collapsed": true,
+      "survived": false,
+      "time_sec": 168.3,
+      "actions": {
+        "invest_in_education": 31,
+        "expand_industry": 5,
+        "incentivize_clean_tech": 9,
+        "stimulate_economy": 10,
+        "invest_in_healthcare": 4
+      }
+    },
+    {
+      "task": "sustainable_governance",
+      "model": "llama-3.3-70b-versatile",
+      "score": 0.1205,
+      "reward": 32.6239,
+      "steps": 52,
+      "collapsed": true,
+      "survived": false,
+      "time_sec": 148.1,
+      "actions": {
+        "invest_in_education": 23,
+        "invest_in_healthcare": 6,
+        "incentivize_clean_tech": 15,
+        "stimulate_economy": 7,
+        "reduce_interest_rates": 1
+      }
+    },
+    {
+      "task": "sustainable_governance",
+      "model": "llama-3.3-70b-versatile",
+      "score": 0.0979,
+      "reward": 17.9402,
+      "steps": 32,
+      "collapsed": true,
+      "survived": false,
+      "time_sec": 20.0,
+      "actions": {
+        "invest_in_education": 3,
+        "invest_in_healthcare": 1,
+        "expand_industry": 2,
+        "no_action": 26
+      }
+    }
+  ]
+}
