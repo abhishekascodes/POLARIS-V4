@@ -85,7 +85,7 @@ To improve performance, I trained a Qwen 2.5 3B model using:
 - **6 component composite reward**: governance + Pareto optimality + Theory of Mind + coalition formation + briefing compliance + oscillation penalty
 - **Curriculum training**: difficulty escalates from Easy to Extreme as the agent improves
 
-Training was done on an NVIDIA RTX 5080 Laptop GPU. 100 GRPO steps took 788 seconds (about 13 minutes), with only 29.9M trainable parameters out of 1.73B total (1.73%).
+Training was performed on an NVIDIA RTX 5080 Laptop GPU. 100 GRPO steps took 788 seconds (about 13 minutes), with only 29.9M trainable parameters out of 1.73B total (1.73%).
 
 Training helps the agent:
 
@@ -190,6 +190,8 @@ This allows the system to evolve toward more complex and realistic simulations.
 POLARIS is not just about maximizing reward. It is about understanding what happens when intelligence is distributed across multiple agents.
 
 As AI systems become more interconnected, studying coordination and failure at this level becomes increasingly important.
+
+Understanding coordination failure may be as important as improving intelligence itself.
 
 ---
 
