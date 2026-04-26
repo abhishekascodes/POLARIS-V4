@@ -55,6 +55,8 @@ Unlike simple RL environments, the challenge here is **other intelligent agents 
 
 > If Colab doesn't open, [view the notebook directly on GitHub](https://github.com/abhishekascodes/POLARIS-V3/blob/main/POLARIS_v3_Demo.ipynb).
 
+**Advanced Dashboard:** A full real-time control panel with live metrics, coalition tracking, and system internals is available via the [control panel](https://asabhishek-polaris-v3.hf.space/control).
+
 ---
 
 ## Key Features
