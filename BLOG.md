@@ -10,6 +10,8 @@ In real systems like governments, markets or organizations, multiple actors inte
 
 POLARIS V3 is built to explore this setting. It is a multi agent environment where AI systems must negotiate, cooperate, and survive under pressure.
 
+POLARIS studies what happens when intelligent systems must coordinate with other intelligent systems — and what causes them to fail.
+
 ---
 
 ## The Problem
@@ -103,7 +105,7 @@ Training leads to measurable improvements in coordination and system stability.
 | Coalition Formation | 12 | **35** | **2.9x** |
 | Training Time | — | 788s | RTX 5080 |
 
-Training improves coordination efficiency, increasing average reward by ~29% and stabilizing performance across episodes. Scaling to larger training runs significantly amplifies these effects, with performance gains reaching +126%.
+Initial training improves coordination stability (~29%), while extended training and scaling lead to significant gains (+126%).
 
 ![GRPO Training Results](outputs/grpo_training/grpo_training_results.png)
 
@@ -120,13 +122,15 @@ After training, the agent was tested across increasing difficulty levels:
 
 The trained agent dominates Easy and Medium levels while Hard and Extreme remain unsolved, proving genuine difficulty scaling.
 
+**Key takeaway:** Training improves coordination, while scaling amplifies these effects significantly.
+
 ### Frontier Model Benchmark
 
 I also benchmarked Llama 3.3 70B (via Groq API) against all tasks. The results show that even frontier models struggle with multi agent coordination:
 
 - Llama 70B scores **0.96** on easy single objective governance
 - But **collapses to 0.22** under multi agent negotiation pressure
-- Theory of Mind accuracy: **0%** — it cannot predict minister vetoes
+- Shows very limited ability to predict minister vetoes
 
 This confirms that POLARIS creates genuine difficulty that scales with model sophistication, and that there is massive room for improvement through RL training.
 
