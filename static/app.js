@@ -7,7 +7,7 @@ function tab(id){document.querySelectorAll('.tab').forEach(t=>t.classList.toggle
 document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;const m={'1':'live','2':'neg','3':'war','4':'causal','5':'metrics','6':'risk','7':'hist'};if(m[e.key])tab(m[e.key]);if(e.key===' '){e.preventDefault();pause();}});
 
 function conn(){
-  ws=new WebSocket(`ws://${location.host}/ws`);
+  const proto=location.protocol==='https:'?'wss':'ws';ws=new WebSocket(`${proto}://${location.host}/ws`);
   ws.onopen=()=>{document.getElementById('wsd').className='dot up';document.getElementById('wsl').textContent='ONLINE';};
   ws.onclose=()=>{document.getElementById('wsd').className='dot dn';document.getElementById('wsl').textContent='RECONNECTING';setTimeout(conn,2000);};
   ws.onmessage=e=>{const m=JSON.parse(e.data);({init:onInit,step:onStep,episode_start:onStart,episode_end:onEnd,pause:onPause}[m.type]||(()=>{}))(m);};
