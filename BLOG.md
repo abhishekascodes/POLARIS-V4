@@ -1,5 +1,7 @@
 # POLARIS V3 – When AI Agents Stop Co-operating
 
+*This post explains the design, training, and results behind POLARIS v3.*
+
 ## Introduction
 
 Most AI systems today are designed to perform well in isolation. They optimize a clear objective in a controlled environment and produce strong results. But real world decision making rarely works like this.
