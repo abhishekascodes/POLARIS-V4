@@ -72,6 +72,8 @@ POLARIS introduces several elements that make coordination challenging:
 
 This creates a setting where success depends not just on making good decisions, but on understanding other agents.
 
+POLARIS is designed as a benchmark environment for studying coordination, not just as a training task.
+
 ---
 
 ## Training the System
@@ -96,7 +98,7 @@ Training helps the agent:
 
 ## Results
 
-Training leads to measurable improvements in coordination and system stability.
+The environment creates meaningful difficulty, and training demonstrates that agents can learn to navigate it.
 
 | Metric | Before Training | After GRPO | Change |
 |--------|:------:|:----------:|:------:|
