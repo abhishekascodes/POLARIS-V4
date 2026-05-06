@@ -78,6 +78,57 @@ MINISTER_ROLES = [
                            "upgrade_energy_grid", "invest_in_transport"],
         disliked_actions=["decrease_tax", "expand_industry"],
     ),
+    # ── Extended roles for 8-12 minister scaling scenarios ──
+    MinisterRole(
+        name="Energy",
+        objective_weights=[0.15, 0.30, 0.10, 0.10, 0.35],
+        preferred_actions=["upgrade_energy_grid", "subsidize_renewables",
+                           "incentivize_clean_tech", "invest_in_transport"],
+        disliked_actions=["expand_industry", "decrease_tax"],
+    ),
+    MinisterRole(
+        name="Defense",
+        objective_weights=[0.25, 0.05, 0.15, 0.05, 0.50],
+        preferred_actions=["expand_industry", "increase_tax", "invest_in_transport",
+                           "upgrade_energy_grid"],
+        disliked_actions=["decrease_tax", "increase_welfare", "subsidize_renewables"],
+    ),
+    MinisterRole(
+        name="Education",
+        objective_weights=[0.10, 0.10, 0.35, 0.30, 0.15],
+        preferred_actions=["invest_in_education", "invest_in_healthcare",
+                           "increase_welfare", "incentivize_clean_tech"],
+        disliked_actions=["expand_industry", "decrease_tax"],
+    ),
+    MinisterRole(
+        name="Trade",
+        objective_weights=[0.40, 0.10, 0.15, 0.05, 0.30],
+        preferred_actions=["stimulate_economy", "decrease_tax", "reduce_interest_rates",
+                           "expand_industry", "invest_in_transport"],
+        disliked_actions=["increase_tax", "implement_carbon_tax",
+                          "restrict_polluting_industries"],
+    ),
+    MinisterRole(
+        name="Labor",
+        objective_weights=[0.15, 0.10, 0.45, 0.15, 0.15],
+        preferred_actions=["increase_welfare", "invest_in_education",
+                           "invest_in_healthcare", "stimulate_economy"],
+        disliked_actions=["decrease_tax", "restrict_polluting_industries"],
+    ),
+    MinisterRole(
+        name="Technology",
+        objective_weights=[0.20, 0.25, 0.10, 0.10, 0.35],
+        preferred_actions=["incentivize_clean_tech", "upgrade_energy_grid",
+                           "invest_in_education", "subsidize_renewables"],
+        disliked_actions=["no_action", "increase_tax"],
+    ),
+    MinisterRole(
+        name="Agriculture",
+        objective_weights=[0.20, 0.35, 0.25, 0.10, 0.10],
+        preferred_actions=["subsidize_renewables", "increase_welfare",
+                           "restrict_polluting_industries", "invest_in_transport"],
+        disliked_actions=["expand_industry", "stimulate_economy"],
+    ),
 ]
 
 
@@ -281,7 +332,7 @@ class MultiAgentCouncil:
     ) -> None:
         """Reinitialise council for a new episode."""
         self._rng = random.Random(seed + 99991)
-        self._num_ministers = min(num_ministers, 5)
+        self._num_ministers = min(num_ministers, len(MINISTER_ROLES))  # supports up to 12
         self._chaos_level = chaos_level
         self._institutional_trust = institutional_trust
         self._step = 0

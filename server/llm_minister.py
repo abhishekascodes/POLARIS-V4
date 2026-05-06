@@ -127,8 +127,99 @@ MINISTER_PERSONAS: List[MinisterPersona] = [
     ),
 ]
 
-PERSONA_BY_NAME = {p.name: p for p in MINISTER_PERSONAS}
-PERSONA_BY_ROLE = {p.role: p for p in MINISTER_PERSONAS}
+# ── Extended personas for 8-12 minister scaling scenarios ──
+EXTENDED_PERSONAS: List[MinisterPersona] = [
+    MinisterPersona(
+        name="Minister Patel",
+        role="Energy Minister",
+        emoji="⚡",
+        priorities=["energy_efficiency", "renewable_energy_ratio", "industrial_output"],
+        preferred_actions=["upgrade_energy_grid", "subsidize_renewables",
+                           "incentivize_clean_tech", "invest_in_transport"],
+        opposed_actions=["expand_industry", "decrease_tax"],
+        hidden_agenda="Believes energy independence is the only path to real sovereignty. "
+                      "Will sacrifice GDP for energy security.",
+        aggression=0.5,
+    ),
+    MinisterPersona(
+        name="Advisor Chen",
+        role="Technology & Innovation Minister",
+        emoji="🔬",
+        priorities=["education_index", "energy_efficiency", "industrial_output"],
+        preferred_actions=["incentivize_clean_tech", "invest_in_education",
+                           "upgrade_energy_grid", "subsidize_renewables"],
+        opposed_actions=["no_action", "increase_tax"],
+        hidden_agenda="Techno-optimist who thinks innovation solves everything. "
+                      "Will oppose any policy that isn't 'forward-thinking'.",
+        aggression=0.3,
+    ),
+    MinisterPersona(
+        name="Secretary Kim",
+        role="Trade & Commerce Minister",
+        emoji="🌐",
+        priorities=["trade_balance", "foreign_investment", "gdp_index"],
+        preferred_actions=["stimulate_economy", "decrease_tax", "reduce_interest_rates",
+                           "expand_industry"],
+        opposed_actions=["increase_tax", "implement_carbon_tax",
+                         "restrict_polluting_industries"],
+        hidden_agenda="Prioritizes trade deals over domestic welfare. "
+                      "Will betray environmental coalitions for trade advantages.",
+        aggression=0.6,
+    ),
+    MinisterPersona(
+        name="Envoy Müller",
+        role="Defense & Security Minister",
+        emoji="🛡️",
+        priorities=["industrial_output", "gdp_index", "energy_efficiency"],
+        preferred_actions=["expand_industry", "increase_tax", "invest_in_transport",
+                           "upgrade_energy_grid"],
+        opposed_actions=["decrease_tax", "increase_welfare", "subsidize_renewables"],
+        hidden_agenda="Views industrial capacity as national security. "
+                      "Will veto any policy that weakens manufacturing base.",
+        aggression=0.9,
+    ),
+    MinisterPersona(
+        name="Commissioner Osei",
+        role="Labor & Employment Minister",
+        emoji="👷",
+        priorities=["unemployment_rate", "public_satisfaction", "inequality_index"],
+        preferred_actions=["stimulate_economy", "increase_welfare",
+                           "invest_in_education", "expand_industry"],
+        opposed_actions=["restrict_polluting_industries", "enforce_emission_limits"],
+        hidden_agenda="Workers' champion. Will oppose ANY environmental regulation "
+                      "if unemployment exceeds 12%. Emotional decision-maker.",
+        aggression=0.7,
+    ),
+    MinisterPersona(
+        name="Delegate Yamamoto",
+        role="Agriculture & Rural Minister",
+        emoji="🌾",
+        priorities=["ecological_stability", "pollution_index", "public_satisfaction"],
+        preferred_actions=["subsidize_renewables", "restrict_polluting_industries",
+                           "increase_welfare", "invest_in_transport"],
+        opposed_actions=["expand_industry", "stimulate_economy"],
+        hidden_agenda="Rural conservative who distrusts rapid industrialization. "
+                      "Secretly opposes ALL urban-focused policies.",
+        aggression=0.4,
+    ),
+    MinisterPersona(
+        name="Attaché da Silva",
+        role="Education & Culture Minister",
+        emoji="📚",
+        priorities=["education_index", "inequality_index", "public_satisfaction"],
+        preferred_actions=["invest_in_education", "increase_welfare",
+                           "invest_in_healthcare", "incentivize_clean_tech"],
+        opposed_actions=["decrease_tax", "expand_industry"],
+        hidden_agenda="Long-game thinker. Will sacrifice ALL short-term metrics "
+                      "for education investment. Believes nothing else matters.",
+        aggression=0.2,
+    ),
+]
+
+# Combine all personas (5 core + 7 extended = 12 total)
+ALL_PERSONAS = MINISTER_PERSONAS + EXTENDED_PERSONAS
+PERSONA_BY_NAME = {p.name: p for p in ALL_PERSONAS}
+PERSONA_BY_ROLE = {p.role: p for p in ALL_PERSONAS}
 
 
 def _build_system_prompt(persona: MinisterPersona) -> str:
@@ -241,12 +332,13 @@ class LLMMinisterEngine:
     def reset(self, seed: int = 42, num_ministers: int = 5) -> None:
         """Reset for new episode."""
         self._rng = random.Random(seed + 77777)
-        self._num_ministers = min(num_ministers, 5)
+        self._num_ministers = min(num_ministers, len(ALL_PERSONAS))  # up to 12
         self._step = 0
-        self._memory = {p.name: [] for p in MINISTER_PERSONAS[:num_ministers]}
+        active_personas = ALL_PERSONAS[:self._num_ministers]
+        self._memory = {p.name: [] for p in active_personas}
         self._trust = {
             p.name: 0.5 + self._rng.random() * 0.3
-            for p in MINISTER_PERSONAS[:num_ministers]
+            for p in active_personas
         }
 
     def generate_proposals(
@@ -257,7 +349,7 @@ class LLMMinisterEngine:
     ) -> List[MinisterProposal]:
         """Generate proposals from all active ministers."""
         self._step = step
-        personas = MINISTER_PERSONAS[:self._num_ministers]
+        personas = ALL_PERSONAS[:self._num_ministers]
 
         if self._mode == "llm" and self._client:
             return self._generate_llm_proposals(state, active_events, personas)
@@ -614,7 +706,7 @@ class LLMMinisterEngine:
     # ─────────────────────────────────────────────────────────
 
     def get_minister_names(self) -> List[str]:
-        return [p.name for p in MINISTER_PERSONAS[:self._num_ministers]]
+        return [p.name for p in ALL_PERSONAS[:self._num_ministers]]
 
     def get_trust_levels(self) -> Dict[str, float]:
         return dict(self._trust)

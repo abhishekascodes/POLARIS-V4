@@ -179,7 +179,14 @@ class NegotiationProtocol:
 
         # Theory-of-mind scoring
         actual_opposers = result.get("opposers", [])
-        predicted_vetoes = set(agent_response.veto_prediction)
+        predicted_vetoes = set()
+        for v in (agent_response.veto_prediction or []):
+            if isinstance(v, str):
+                predicted_vetoes.add(v)
+            elif isinstance(v, dict):
+                predicted_vetoes.add(str(v.get("name", v.get("minister", ""))))
+            else:
+                predicted_vetoes.add(str(v))
         actual_vetoer = result.get("veto_by", "")
 
         tom_correct = False

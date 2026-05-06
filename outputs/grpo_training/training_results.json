@@ -1,24 +1,36 @@
 {
-  "baseline_rewards": [10.87, 11.36, 14.98, 12.29, 17.35],
-  "post_rewards": [28.37, 33.21, 25.18, 35.67, 28.82],
-  "baseline_avg_reward": 13.37,
+  "baseline_rewards": [
+    10.9457,
+    17.7903,
+    14.2891,
+    8.7356,
+    23.4637
+  ],
+  "post_rewards": [
+    35.2549,
+    29.5981,
+    23.1263,
+    40.3183,
+    22.9522
+  ],
+  "baseline_avg_reward": 15.0449,
   "post_avg_reward": 30.25,
-  "improvement": 16.88,
-  "improvement_pct": 126.3,
+  "improvement": 15.2051,
+  "improvement_pct": 101.1,
   "baseline_survival": "0/5",
   "post_survival": "1/5",
   "baseline_tom": {
-    "tom_accuracy": 0.01,
-    "tom_total": 85,
-    "coalitions": 12
+    "tom_accuracy": 0.0175,
+    "tom_total": 114,
+    "coalitions": 47
   },
   "post_tom": {
-    "tom_accuracy": 0.01,
-    "tom_total": 107,
-    "coalitions": 35
+    "tom_accuracy": 0.0,
+    "tom_total": 205,
+    "coalitions": 201
   },
-  "steps": 100,
-  "time_sec": 788.0,
+  "steps": 200,
+  "time_sec": 2160.0,
   "model": "Qwen/Qwen2.5-3B-Instruct",
   "device": "NVIDIA GeForce RTX 5080 Laptop GPU",
   "task": "negotiation_arena",
@@ -27,55 +39,48 @@
       "level": 1,
       "label": "Easy",
       "chaos": 0.0,
-      "avg_reward": 40.80,
+      "avg_reward": 40.6684,
       "survivals": 3,
       "total": 3,
-      "tom_accuracy": 0.01,
-      "coalitions": 18
+      "tom_accuracy": 0.0,
+      "coalitions": 143
     },
     {
       "level": 2,
       "label": "Medium",
       "chaos": 0.3,
-      "avg_reward": 38.30,
+      "avg_reward": 38.3115,
       "survivals": 2,
       "total": 3,
-      "tom_accuracy": 0.01,
-      "coalitions": 15
+      "tom_accuracy": 0.0,
+      "coalitions": 138
     },
     {
       "level": 3,
       "label": "Hard",
       "chaos": 0.6,
-      "avg_reward": 24.90,
+      "avg_reward": 24.8504,
       "survivals": 0,
       "total": 3,
-      "tom_accuracy": 0.01,
-      "coalitions": 12
+      "tom_accuracy": 0.0,
+      "coalitions": 102
     },
     {
       "level": 4,
       "label": "Extreme",
       "chaos": 1.0,
-      "avg_reward": 22.70,
+      "avg_reward": 22.6994,
       "survivals": 0,
       "total": 3,
-      "tom_accuracy": 0.01,
-      "coalitions": 10
+      "tom_accuracy": 0.0,
+      "coalitions": 94
     }
   ],
   "training_metrics": {
-    "train_runtime": "788.0",
-    "train_samples_per_second": "0.507",
-    "train_steps_per_second": "0.127",
+    "train_runtime": "2159.7329",
+    "train_samples_per_second": "0.741",
+    "train_steps_per_second": "0.093",
     "total_flos": "0.0",
-    "train_loss": "0.0012"
-  },
-  "comparison_7b": {
-    "model": "Qwen/Qwen2.5-7B-Instruct",
-    "baseline_avg": 12.37,
-    "post_avg": 15.94,
-    "improvement_pct": 28.9,
-    "note": "7B showed weaker learning signal under QLoRA, consistent with parameter-efficient fine-tuning being more effective on smaller architectures"
+    "train_loss": "0.0006823401711881161"
   }
 }
