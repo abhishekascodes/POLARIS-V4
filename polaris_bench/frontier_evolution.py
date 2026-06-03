@@ -6,7 +6,8 @@ councils through selection, crossover, and mutation. Discovers
 emergent stability structures that humans haven't designed.
 """
 import sys, io, os, json, time, random, copy, statistics
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+if __name__ == "__main__":
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
 import torch

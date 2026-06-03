@@ -126,7 +126,7 @@ class ConstitutionalAgent(nn.Module):
                         directive_idx: int) -> Tuple[int, float]:
         """Minister selects action conditioned on constitutional directive."""
         directive_oh = F.one_hot(torch.tensor(directive_idx), 
-                                 self.NUM_DIRECTIVES).float()
+                                 self.NUM_DIRECTIVES).float().to(minister_obs.device)
         x = torch.cat([minister_obs, directive_oh], dim=-1).unsqueeze(0)
         h = self.minister_encoder(x)
         logits = self.minister_policy(h)
@@ -313,20 +313,22 @@ class RSSM(nn.Module):
         Returns best action sequence.
         """
         B = num_trajectories
+        dev = next(self.parameters()).device
         h, z = self.initial_state(B)
+        h, z = h.to(dev), z.to(dev)
         
         # Encode initial state
-        h_init = torch.zeros(1, self.det_dim)
-        z_init = torch.zeros(1, self.stoch_dim)
-        action_init = torch.zeros(1, self.action_dim)
+        h_init = torch.zeros(1, self.det_dim, device=dev)
+        z_init = torch.zeros(1, self.stoch_dim, device=dev)
+        action_init = torch.zeros(1, self.action_dim, device=dev)
         step = self.observe_step(state.unsqueeze(0), action_init, h_init, z_init)
         
         # Expand for B trajectories
         h = step["h"].expand(B, -1).clone()
         z = step["z"].expand(B, -1).clone()
         
-        total_rewards = torch.zeros(B)
-        first_actions = torch.zeros(B, dtype=torch.long)
+        total_rewards = torch.zeros(B, device=dev)
+        first_actions = torch.zeros(B, dtype=torch.long, device=dev)
         discount = 1.0
         gamma = 0.99
         

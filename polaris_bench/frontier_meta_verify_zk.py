@@ -6,7 +6,8 @@ POLARIS v4 -- Frontier Module 3: Meta-Plasticity, Formal Verification, ZK Diplom
 3. Zero-Knowledge Diplomacy: Agents prove cooperation capacity without revealing state.
 """
 import sys, io
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+if __name__ == "__main__":
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
 import torch
 import torch.nn as nn
@@ -327,7 +328,7 @@ class ZKDiplomacy(nn.Module):
         commitments = self.make_commitment(agent_states)  # (N, commitment_dim)
         
         # Each agent makes all claims
-        claims = torch.ones(N, self.NUM_CLAIMS)
+        claims = torch.ones(N, self.NUM_CLAIMS, device=agent_states.device)
         
         # Generate proofs
         proofs = self.generate_proof(agent_states, claims)
