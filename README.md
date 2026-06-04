@@ -20,9 +20,9 @@ tags:
 
 # POLARIS v4 -- Frontier Multi-Agent AI Governance Engine
 
-**20 frontier research modules. Formal safety guarantees. Verified imagination. Evolutionary population play. Built from scratch by one person.**
+**10 frontier research modules. Formal safety guarantees. Verified imagination. Evolutionary population play. Built from scratch by one person.**
 
-> POLARIS v4 integrates 20 frontier modules -- Latent Diplomacy, COMA, Constitutional HRL, RSSM World Models, Hebbian Meta-Plasticity, Invariant Verification, Zero-Knowledge Diplomacy, MAP-Elites, Byzantine Fault Detection, Shapley Credit, Nash Equilibrium, Emergent Language Analysis, Phase Transitions, Causal Inference, Cognitive Hierarchy, Welfare Economics, Constitutional Amendment, Regret Minimization, Inverse RL, and Distributional RL -- into a single unified governance pipeline.
+> POLARIS v4 integrates 10 frontier modules -- Latent Diplomacy, COMA, Constitutional HRL, RSSM World Models, Hebbian Meta-Plasticity, Invariant Verification, Zero-Knowledge Diplomacy, and MAP-Elites -- into a single unified governance pipeline.
 
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org)
@@ -178,8 +178,8 @@ python polaris_v4_benchmark.py
 # Run Phase 2 (GRPO training) + Phase 3 (eval)
 python run_phase2_3.py
 
-# Run V5 integrated pipeline (all 20 modules)
-python polaris_v5_integrated.py
+# Run V4 integrated pipeline (all 10 modules)
+python polaris_v4_integrated.py
 
 # Launch live dashboard
 python dashboard_server.py
@@ -196,20 +196,10 @@ polaris_bench/
   frontier_hrl_dreamer.py      -- Constitutional HRL + RSSM world model
   frontier_meta_verify_zk.py   -- Hebbian plasticity + Invariant verifier + ZK diplomacy
   frontier_evolution.py        -- GovernanceGenome + MAP-Elites
-  adversarial.py               -- Byzantine fault detection + rogue minister
-  shapley.py                   -- Shapley credit assignment (exact, 5 agents)
-  nash.py                      -- Nash equilibrium detection + analysis
-  emergent_analysis.py         -- Emergent language analysis + clustering
-  phase_transition.py          -- Phase transition detection + prediction
-  causal_engine.py             -- Structural + neural causal models
-  cognitive_hierarchy.py       -- Level-K reasoning + recursive beliefs
-  welfare_economics.py         -- Welfare metrics + Gini + social welfare
-  constitutional_amendment.py  -- Dynamic constitutional amendment
-  regret_mechanism.py          -- Regret minimization + VCG mechanism
-  social_info.py               -- Social attention + information bounds
-  inverse_rl.py                -- Reward inference + agent profiling
-  dist_pareto_maml.py          -- Distributional critic + Pareto + MAML
-  verified_imagination.py      -- Constitutional world model
+  evaluator.py                 -- Benchmark evaluation engine
+  metrics.py                   -- Governance scoring metrics
+  stats.py                     -- Statistical analysis
+  report.py                    -- Benchmark report generation
 
 server/
   policy_environment.py        -- Core governance simulation (21 metrics)
@@ -218,7 +208,7 @@ server/
   ministers.py                 -- 5 AI minister agents with hidden agendas
 
 polaris_v4_benchmark.py        -- Phase 1 benchmark pipeline
-polaris_v5_integrated.py       -- 20-module integrated council
+polaris_v4_integrated.py       -- 10-module integrated council
 run_phase2_3.py                -- GRPO training + post-training eval
 dashboard_server.py            -- Live WebSocket dashboard server
 dashboard.html                 -- HF-compatible results dashboard
@@ -256,6 +246,6 @@ POLARIS v4 draws from and integrates ideas across multiple research areas:
 
 <div align="center">
 
-**POLARIS v4 -- Where 20 frontier modules work together to solve what scale alone cannot.**
+**POLARIS v4 -- Where 10 frontier modules work together to solve what scale alone cannot.**
 
 </div>
