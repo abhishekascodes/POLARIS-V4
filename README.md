@@ -20,15 +20,14 @@ tags:
 
 # POLARIS v4 -- Frontier Multi-Agent AI Governance Engine
 
-**10 frontier research modules. Formal safety guarantees. Verified imagination. Evolutionary population play. Built from scratch by one person.**
+**20 frontier research modules. Formal safety guarantees. Verified imagination. Evolutionary population play. Built from scratch by one person.**
 
-> POLARIS v4 is the research-grade successor to v3. It integrates Latent Diplomacy, Counterfactual Credit Assignment, Constitutional HRL, RSSM World Models, Hebbian Meta-Plasticity, Invariant Verification, Zero-Knowledge Diplomacy, and MAP-Elites into a single unified training pipeline.
+> POLARIS v4 integrates 20 frontier modules -- Latent Diplomacy, COMA, Constitutional HRL, RSSM World Models, Hebbian Meta-Plasticity, Invariant Verification, Zero-Knowledge Diplomacy, MAP-Elites, Byzantine Fault Detection, Shapley Credit, Nash Equilibrium, Emergent Language Analysis, Phase Transitions, Causal Inference, Cognitive Hierarchy, Welfare Economics, Constitutional Amendment, Regret Minimization, Inverse RL, and Distributional RL -- into a single unified governance pipeline.
 
-[![OpenEnv](https://img.shields.io/badge/OpenEnv-Compatible-4f46e5?style=for-the-badge)](https://github.com/OpenEnv-ai/openenv)
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org)
 
-**Built solo by [Abhishek A S](https://github.com/abhishekascodes) (17) -- Meta PyTorch OpenEnv Hackathon 2026**
+**Built by [Abhishek A S](https://github.com/abhishekascodes)**
 
 </div>
 
@@ -95,37 +94,35 @@ A genetic algorithm maintains a population of **GovernanceGenome** neural polici
 
 ## Training Results
 
-### GRPO Training (Qwen 2.5 3B, QLoRA 4-bit, RTX 5080)
+### GRPO Training (Qwen 2.5-3B, QLoRA 4-bit, RTX 5080)
 
-| Metric | Before Training | After GRPO (300 steps) | Change |
-|--------|:--------------:|:---------------------:|:------:|
-| Avg Reward | 15.0 | 30.2 | **+101%** |
-| Survival | 0/5 | 1/5 | First survival |
-| Coalitions | 47 | 201 | **+328%** |
+**8 epochs, 142 minutes, 1.84M trainable parameters**
 
-Training on `negotiation_arena` with curriculum escalation (Easy -> Medium -> Hard -> Extreme). The model learned to form coalitions and survive governance collapse.
+| Epoch | Reward | Loss | Time |
+|:-----:|:------:|:----:|:----:|
+| 1 | 40.68 | 0.1958 | 9.7m |
+| 4 | 40.89 | 0.1350 | 25.4m |
+| 8 | 40.84 | **0.0180** | 1.5m |
 
-### Integrated Pipeline (All 10 Modules Live)
+**Loss dropped 91%** (0.196 -> 0.018). Policy converged.
 
-```
-Council params: 331,071
-Task: negotiation_arena | 5 seeds
+### Before vs After Training
 
-  Seed |   Score |  Surv | Steps |  Trust | Safety |     KL | Prunes | Directive
--------+---------+-------+-------+--------+--------+--------+--------+--------------------
-    42 |  0.2151 |    NO |    74 |  0.599 |  0.937 | 0.0008 |      9 | social_stability
-   123 |  0.2209 |    NO |    64 |  0.599 |  0.999 | 0.0008 |      0 | social_stability
-   777 |  0.1663 |    NO |    18 |  0.599 |  0.956 | 0.0008 |      0 | survival_mode
-   999 |  0.2231 |    NO |    55 |  0.599 |  0.993 | 0.0008 |      2 | innovation_sprint
-  1337 |  0.2033 |    NO |    40 |  0.599 |  0.976 | 0.0008 |      6 | innovation_sprint
+| Metric | Baseline (untrained) | After GRPO | Change |
+|--------|:-------------------:|:----------:|:------:|
+| Avg Score | 0.3166 | 0.3635 | **+14.8%** |
+| Collapse Rate (eval tasks) | 100% | **50%** | -50pp |
+| env_recovery Survival | 0% | **100%** | Fixed |
 
-  Avg Safety Score:  0.9721
-  Invariant Prunes:  17 (unsafe actions blocked by formal verification)
-  RSSM:              16 imagined trajectories per step
-  Hebbian:           Per-neuron LR adapted to surprise signals
-  Constitutional:    Directives issued every 5 steps
-  Latent Diplomacy:  All minister comms through KL bottleneck
-```
+### V4 Benchmark Leaderboard (Phase 1: 54 episodes)
+
+| Agent | Avg Score | Collapse Rate | Avg Reward |
+|-------|:---------:|:------------:|:----------:|
+| Smart Heuristic | 0.3246 | 83.3% | 44.52 |
+| Qwen2.5-3B | 0.3166 | 100% | 16.26 |
+| Qwen2.5-7B | 0.2984 | 83.3% | 16.48 |
+| Random | 0.3032 | 83.3% | 20.24 |
+| Qwen2.5-0.5B | 0.2414 | 100% | 9.15 |
 
 ---
 
@@ -175,20 +172,18 @@ POLARIS v4 Integrated Council (331K params)
 # Install
 pip install -r requirements.txt
 
-# Validate all 10 modules are operational
-python polaris_v4_integrated.py --validate-only
+# Run Phase 1 benchmark (all agents, all tasks)
+python polaris_v4_benchmark.py
 
-# Run integrated benchmark (5 episodes)
-python polaris_v4_integrated.py --episodes 5 --task negotiation_arena
+# Run Phase 2 (GRPO training) + Phase 3 (eval)
+python run_phase2_3.py
 
-# Run with evolutionary search
-python polaris_v4_integrated.py --episodes 5 --run-evolution
+# Run V5 integrated pipeline (all 20 modules)
+python polaris_v5_integrated.py
 
-# Train with GRPO
-python train_grpo.py --model Qwen/Qwen2.5-3B-Instruct --steps 300
-
-# Run zero-shot stress test across all model sizes
-python run_local_llm_benchmark.py
+# Launch live dashboard
+python dashboard_server.py
+# Open http://localhost:8765 (dashboard) or http://localhost:8765/control (control panel)
 ```
 
 ---
@@ -197,10 +192,24 @@ python run_local_llm_benchmark.py
 
 ```
 polaris_bench/
-  frontier_comm_coma.py        -- Latent Diplomacy + COMA critic/policy
+  frontier_comm_coma.py        -- Latent Diplomacy + COMA critic
   frontier_hrl_dreamer.py      -- Constitutional HRL + RSSM world model
   frontier_meta_verify_zk.py   -- Hebbian plasticity + Invariant verifier + ZK diplomacy
   frontier_evolution.py        -- GovernanceGenome + MAP-Elites
+  adversarial.py               -- Byzantine fault detection + rogue minister
+  shapley.py                   -- Shapley credit assignment (exact, 5 agents)
+  nash.py                      -- Nash equilibrium detection + analysis
+  emergent_analysis.py         -- Emergent language analysis + clustering
+  phase_transition.py          -- Phase transition detection + prediction
+  causal_engine.py             -- Structural + neural causal models
+  cognitive_hierarchy.py       -- Level-K reasoning + recursive beliefs
+  welfare_economics.py         -- Welfare metrics + Gini + social welfare
+  constitutional_amendment.py  -- Dynamic constitutional amendment
+  regret_mechanism.py          -- Regret minimization + VCG mechanism
+  social_info.py               -- Social attention + information bounds
+  inverse_rl.py                -- Reward inference + agent profiling
+  dist_pareto_maml.py          -- Distributional critic + Pareto + MAML
+  verified_imagination.py      -- Constitutional world model
 
 server/
   policy_environment.py        -- Core governance simulation (21 metrics)
@@ -208,9 +217,12 @@ server/
   tasks.py                     -- Trajectory grading and task definitions
   ministers.py                 -- 5 AI minister agents with hidden agendas
 
-polaris_v4_integrated.py       -- Master pipeline: all 10 modules in one run
-train_grpo.py                  -- GRPO training with QLoRA
-run_local_llm_benchmark.py     -- Zero-shot stress test across model scales
+polaris_v4_benchmark.py        -- Phase 1 benchmark pipeline
+polaris_v5_integrated.py       -- 20-module integrated council
+run_phase2_3.py                -- GRPO training + post-training eval
+dashboard_server.py            -- Live WebSocket dashboard server
+dashboard.html                 -- HF-compatible results dashboard
+control.html                   -- Real-time control panel (7 tabs)
 ```
 
 ---
@@ -244,8 +256,6 @@ POLARIS v4 draws from and integrates ideas across multiple research areas:
 
 <div align="center">
 
-**POLARIS v4 -- Where 10 frontier modules work together to solve what scale alone cannot.**
-
-Built for the Meta PyTorch OpenEnv Hackathon 2026
+**POLARIS v4 -- Where 20 frontier modules work together to solve what scale alone cannot.**
 
 </div>
